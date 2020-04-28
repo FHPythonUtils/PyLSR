@@ -21,7 +21,7 @@ if os.path.exists(readme_path):
 setup(
     long_description=readme,
     name='pylsr',
-    version='2020',
+    version='2020.0.1',
     description="Use this module to read, and write to Apple's Layer Source Representation (LSR) Image format.",
     python_requires='==3.*,>=3.5.0',
     project_urls={
@@ -39,7 +39,7 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Operating System :: OS Independent'
     ],
-    packages=['pylsr'],
+    packages=['PyLSR'],
     package_dir={"": "."},
     package_data={},
     install_requires=['pillow==7.*,>=7.1.2'],

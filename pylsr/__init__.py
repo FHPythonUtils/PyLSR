@@ -36,7 +36,6 @@ class LSRLayer():
 		Returns:
 			(int, int): Tuple for x, y offset
 		"""
-		print(self.center[0] - self.size[0]/2, self.center[1] - self.size[1]/2)
 		return (self.center[0] - self.size[0]/2, self.center[1] - self.size[1]/2)
 		#return 0, 0
 
@@ -115,8 +114,8 @@ def write(filename, lsrImage):
 		for layer in lsrImage.layers[::-1]:
 			zipref.writestr(layer.name + ".imagestacklayer/Contents.json",
 			json.dumps({"info": INFO,
-			"properties": {"frame-size": {"width": layer.size[0], "height": layer.size[1],
-			"frame-center": {"x": layer.center[0], "y": layer.center[1]}}}}))
+			"properties": {"frame-size": {"width": layer.size[0], "height": layer.size[1]},
+			"frame-center": {"x": layer.center[0], "y": layer.center[1]}}}))
 			for image in layer.images[::-1]:
 				images = [{"idiom": image.idiom, "filename": image.name + ".png",
 				"scale": str(image.scale) + "x"} for image in layer.images[::-1]]

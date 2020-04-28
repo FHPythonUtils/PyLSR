@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pylsr"
-version = "2020"
+version = "2020.0.1"
 description = "Use this module to read, and write to Apple's Layer Source Representation (LSR) Image format."
 authors = ["FredHappyface"]
 classifiers = [
