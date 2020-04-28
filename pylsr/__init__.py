@@ -116,12 +116,12 @@ def write(filename, lsrImage):
 			json.dumps({"info": INFO,
 			"properties": {"frame-size": {"width": layer.size[0], "height": layer.size[1]},
 			"frame-center": {"x": layer.center[0], "y": layer.center[1]}}}))
+			images = [{"idiom": image.idiom, "filename": image.name + ".png",
+			"scale": str(image.scale) + "x"} for image in layer.images[::-1]]
+			zipref.writestr(layer.name + ".imagestacklayer/Content.imageset/Contents.json",
+			json.dumps({"info": INFO,
+			"images": images}))
 			for image in layer.images[::-1]:
-				images = [{"idiom": image.idiom, "filename": image.name + ".png",
-				"scale": str(image.scale) + "x"} for image in layer.images[::-1]]
-				zipref.writestr(layer.name + ".imagestacklayer/Content.imageset/Contents.json",
-				json.dumps({"info": INFO,
-				"images": images}))
 				imgByteArr = io.BytesIO()
 				image.image.save(imgByteArr, format='PNG')
 				imgByteArr.seek(0)
