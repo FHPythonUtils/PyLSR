@@ -16,6 +16,8 @@
 Use this module to read, and write to Apple's Layer Source Representation (LSR)
 Image format.
 
+https://developer.apple.com/library/archive/documentation/Xcode/Reference/xcode_ref-Asset_Catalog_Format/LSRFormatOverview.html
+
 - [Docs](#docs)
 - [Example Usage](#example-usage)
 - [Install With PIP](#install-with-pip)
