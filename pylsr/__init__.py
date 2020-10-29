@@ -1,5 +1,7 @@
 """Read an LSR image
 """
+from __future__ import annotations
+from typing import Optional
 import zipfile
 import json
 import io
@@ -9,12 +11,12 @@ class LSRImage():
 	"""LSRImage contains data on the overall size, the layers and the name of
 	the lsr image
 	"""
-	def __init__(self, size, name, layers=[]):
+	def __init__(self, size: tuple[int, int], name: str, layers: Optional[list[LSRLayer]]=None):
 		self.size = size
-		self.layers = layers
+		self.layers = layers if layers is not None else []
 		self.name = name
 
-	def flatten(self):
+	def flatten(self) -> Image.Image:
 		""" Flatten all of the layers """
 		return flattenAll([LSRImageData(layer.flatten(), "",
 		offsets=layer.offsets()) for layer in self.layers], self.size)
@@ -24,22 +26,24 @@ class LSRLayer():
 	"""LSRLayer contains data on the layer such as the list of images, the name
 	the size and the centre offset
 	"""
-	def __init__(self, images, name, size, center):
+	def __init__(self, images: list[LSRImageData], name: str,
+	size: tuple[int, int], center: tuple[int, int]):
 		self.images = images
 		self.name = name
 		self.size = size
 		self.center = center
 
-	def offsets(self):
+	def offsets(self) -> tuple[int, int]:
 		"""Calculate the x, y offset for the top left corner
 
 		Returns:
-			(int, int): Tuple for x, y offset
+			tuple[int, int]: tuple for x, y offset
 		"""
-		return (self.center[0] - self.size[0]/2, self.center[1] - self.size[1]/2)
+		return (int(self.center[0] - self.size[0]/2),
+		int(self.center[1] - self.size[1]/2))
 		#return 0, 0
 
-	def flatten(self):
+	def flatten(self) -> Image.Image:
 		""" Faltten all of the layers """
 		return flattenAll(self.images, self.size)
 
@@ -48,7 +52,8 @@ class LSRImageData():
 	"""LSRImageData stores the PIL Image along with the name, scale of the image
 	and the idiom
 	"""
-	def __init__(self, image, name, scale="1x", idiom="universal", offsets=(0, 0)):
+	def __init__(self, image: Image.Image, name: str, scale: str="1x",
+	idiom: str="universal", offsets: tuple[int, int]=(0, 0)):
 		self.image = image
 		self.name = name
 		self.scale = int(scale.replace("x", ""))
@@ -59,17 +64,17 @@ class LSRImageData():
 		"""Get the scaled image
 
 		Returns:
-			PIL.Image: The image to scale
+			Image.Image: The image to scale
 		"""
 		width, height = self.image.size
 		return self.image.resize((width * self.scale, height * self.scale))
 
 
-def read(filename):
+def read(filename: str) -> LSRImage:
 	"""Read an lsr file
 
 	Args:
-		filename (string): the path to the file
+		filename (str): the path to the file
 
 	Returns:
 		LSRImage: An lsr image representation
@@ -96,11 +101,11 @@ def read(filename):
 	return lsrImage
 
 
-def write(filename, lsrImage):
+def write(filename: str, lsrImage: LSRImage):
 	"""Write an lsr image to disk
 
 	Args:
-		filename (string): filename and extension
+		filename (str): filename and extension
 		lsrImage (LSRImage): the lsr image representation to save
 	"""
 	INFO = {"version": 1, "author": "pylsr"}
@@ -128,17 +133,18 @@ def write(filename, lsrImage):
 				zipref.writestr(layer.name + ".imagestacklayer/Content.imageset/" +
 				image.name + ".png", imgByteArr.read())
 
-def flattenTwoLayers(layer, imageDimensions, flattenedSoFar=None):
+def flattenTwoLayers(layer: LSRImageData, imageDimensions: tuple[int, int],
+flattenedSoFar: Optional[Image.Image]=None) -> Image.Image:
 	"""Flatten two layers of an image
 
 	Args:
-		layer (LSRLayer): an lsr layer
-		imageDimensions ((int, int)): a tuple of the image dimensions
-		flattenedSoFar (PIL.Image, optional): Raster of what has already been
+		layer (LSRImageData): lsrimagedata
+		imageDimensions (tuple[int, int]): a tuple of the image dimensions
+		flattenedSoFar (Image.Image, optional): Raster of what has already been
 		flattened. Defaults to None.
 
 	Returns:
-		[type]: [description]
+		Image.Image: Flattened image
 	"""
 	foregroundRaster = rasterImageOffset(layer.scaledImage(), imageDimensions,
 	layer.offsets)
@@ -148,16 +154,16 @@ def flattenTwoLayers(layer, imageDimensions, flattenedSoFar=None):
 
 
 
-def flattenAll(layers, imageDimensions):
+def flattenAll(layers: list[LSRImageData], imageDimensions: tuple[int, int]) -> Image.Image:
 	"""Flatten a list of layers and groups
 
 	Args:
-		layers ([Layer|Group]): A list of layers and groups
-		imageDimensions ((int, int)): size of the image
+		layers (list[LSRImageData]): A list of layers and groups
+		imageDimensions (tuple[int, int]): size of the image
 		been flattened. Defaults to None.
 
 	Returns:
-		PIL.Image: Flattened image
+		Image.Image: Flattened image
 	"""
 	flattenedSoFar = flattenTwoLayers(layers[0], imageDimensions)
 	for layer in range(1, len(layers)):
@@ -166,7 +172,8 @@ def flattenAll(layers, imageDimensions):
 	return flattenedSoFar
 
 
-def rasterImageOffset(image, size, offsets=(0, 0)):
+def rasterImageOffset(image: Image.Image, size: tuple[int, int],
+offsets: tuple[int, int]=(0, 0)) -> Image.Image:
 	""" Rasterise an image with offset to a given size"""
 	imageOffset = Image.new("RGBA", size)
 	imageOffset.paste(image.convert("RGBA"), (int(offsets[0]), int(offsets[1])), image.convert("RGBA"))
