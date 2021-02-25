@@ -1,12 +1,12 @@
 [![GitHub top language](https://img.shields.io/github/languages/top/FHPythonUtils/PyLSR.svg?style=for-the-badge)](../../)
-[![Codacy grade](https://img.shields.io/codacy/grade/40d7d99f883f4d86b7843a21ca45b9a1.svg?style=for-the-badge)](https://www.codacy.com/gh/FHPythonUtils/PyLSR)
 [![Repository size](https://img.shields.io/github/repo-size/FHPythonUtils/PyLSR.svg?style=for-the-badge)](../../)
 [![Issues](https://img.shields.io/github/issues/FHPythonUtils/PyLSR.svg?style=for-the-badge)](../../issues)
 [![License](https://img.shields.io/github/license/FHPythonUtils/PyLSR.svg?style=for-the-badge)](/LICENSE.md)
 [![Commit activity](https://img.shields.io/github/commit-activity/m/FHPythonUtils/PyLSR.svg?style=for-the-badge)](../../commits/master)
 [![Last commit](https://img.shields.io/github/last-commit/FHPythonUtils/PyLSR.svg?style=for-the-badge)](../../commits/master)
-[![PyPI Downloads](https://img.shields.io/pypi/dm/PyLSR.svg?style=for-the-badge)](https://pypi.org/project/PyLSR/)
-[![PyPI Version](https://img.shields.io/pypi/v/PyLSR.svg?style=for-the-badge)](https://pypi.org/project/PyLSR/)
+[![PyPI Downloads](https://img.shields.io/pypi/dm/pylsr.svg?style=for-the-badge)](https://pypistats.org/packages/pylsr)
+[![PyPI Total Downloads](https://img.shields.io/badge/dynamic/json?style=for-the-badge&label=total%20downloads&query=%24.total_downloads&url=https%3A%2F%2Fapi.pepy.tech%2Fapi%2Fprojects%2Fpylsr)](https://pepy.tech/project/pylsr)
+[![PyPI Version](https://img.shields.io/pypi/v/pylsr.svg?style=for-the-badge)](https://pypi.org/project/pylsr)
 
 <!-- omit in TOC -->
 # PyLSR
@@ -18,8 +18,8 @@ Image format.
 
 https://developer.apple.com/library/archive/documentation/Xcode/Reference/xcode_ref-Asset_Catalog_Format/LSRFormatOverview.html
 
-- [Docs](#docs)
 - [Example Usage](#example-usage)
+- [Documentation](#documentation)
 - [Install With PIP](#install-with-pip)
 - [Language information](#language-information)
 	- [Built for](#built-for)
@@ -31,7 +31,7 @@ https://developer.apple.com/library/archive/documentation/Xcode/Reference/xcode_
 - [How to run](#how-to-run)
 	- [With VSCode](#with-vscode)
 	- [From the Terminal](#from-the-terminal)
-- [Download](#download-1)
+- [Download Project](#download-project)
 	- [Clone](#clone)
 		- [Using The Command Line](#using-the-command-line)
 		- [Using GitHub Desktop](#using-github-desktop)
@@ -42,17 +42,14 @@ https://developer.apple.com/library/archive/documentation/Xcode/Reference/xcode_
 	- [Code of Conduct](#code-of-conduct)
 	- [Contributing](#contributing)
 	- [Security](#security)
+	- [Support](#support)
+	- [Rationale](#rationale)
 
-
-## Docs
-See the [Docs](/DOCS.md) for more information.
 
 ## Example Usage
 
-
 Images are PIL.Image (s) and so you can use the power of Pillow to apply
 filters, and other modifications to the images.
-
 
 ```python
 """Test pylsr
@@ -71,19 +68,20 @@ pylsr.write(THISDIR + "/test1copy.lsr", pylsr.read(THISDIR + "/test1.lsr"))
 pylsr.read(THISDIR + "/test1.lsr").flatten().save(THISDIR + "/test1.png")
 ```
 
-## Install With PIP
+## Documentation
+See the [Docs](/DOCS/) for more information.
 
+## Install With PIP
 ```python
 pip install pylsr
 ```
 
 Head to https://pypi.org/project/pylsr/ for more info
 
-
 ## Language information
 ### Built for
 This program has been written for Python 3 and has been tested with
-Python version 3.8.0 <https://www.python.org/downloads/release/python-380/>.
+Python version 3.9.0 <https://www.python.org/downloads/release/python-380/>.
 
 ## Install Python on Windows
 ### Chocolatey
@@ -97,21 +95,21 @@ version.
 ## Install Python on Linux
 ### Apt
 ```bash
-sudo apt install python3.8
+sudo apt install python3.9
 ```
 
 ## How to run
 ### With VSCode
 1. Open the .py file in vscode
-2. Ensure a python 3.8 interpreter is selected (Ctrl+Shift+P > Python:Select
-Interpreter > Python 3.8)
+2. Ensure a python 3.9 interpreter is selected (Ctrl+Shift+P > Python:Select
+Interpreter > Python 3.9)
 3. Run by pressing Ctrl+F5 (if you are prompted to install any modules, accept)
 ### From the Terminal
 ```bash
 ./[file].py
 ```
 
-## Download
+## Download Project
 ### Clone
 #### Using The Command Line
 1. Press the Clone or download button in the top right
@@ -150,14 +148,31 @@ Copyright (c) FredHappyface
 See the [Changelog](/CHANGELOG.md) for more information.
 
 ### Code of Conduct
-In the interest of fostering an open and welcoming environment, we
-as contributors and maintainers pledge to make participation in our
-project and our community a harassment-free experience for everyone.
-Please see the
-[Code of Conduct](https://github.com/FHPythonUtils/.github/blob/master/CODE_OF_CONDUCT.md) for more information.
+Online communities include people from many backgrounds. The *Project*
+contributors are committed to providing a friendly, safe and welcoming
+environment for all. Please see the
+[Code of Conduct](https://github.com/FHPythonUtils/.github/blob/master/CODE_OF_CONDUCT.md)
+ for more information.
 
 ### Contributing
-Contributions are welcome, please see the [Contributing Guidelines](https://github.com/FHPythonUtils/.github/blob/master/CONTRIBUTING.md) for more information.
+Contributions are welcome, please see the
+[Contributing Guidelines](https://github.com/FHPythonUtils/.github/blob/master/CONTRIBUTING.md)
+for more information.
 
 ### Security
-Thank you for improving the security of the project, please see the [Security Policy](https://github.com/FHPythonUtils/.github/blob/master/SECURITY.md) for more information.
+Thank you for improving the security of the project, please see the
+[Security Policy](https://github.com/FHPythonUtils/.github/blob/master/SECURITY.md)
+for more information.
+
+### Support
+Thank you for using this project, I hope it is of use to you. Please be aware that
+those involved with the project often do so for fun along with other commitments
+(such as work, family, etc). Please see the
+[Support Policy](https://github.com/FHPythonUtils/.github/blob/master/SUPPORT.md)
+for more information.
+
+### Rationale
+The rationale acts as a guide to various processes regarding projects such as
+the versioning scheme and the programming styles used. Please see the
+[Rationale](https://github.com/FHPythonUtils/.github/blob/master/RATIONALE.md)
+for more information.
