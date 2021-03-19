@@ -1,59 +1,70 @@
-"""Read an LSR image
+"""Read an LSR image.
 """
 from __future__ import annotations
-from typing import Optional
-import zipfile
-import json
+
 import io
+import json
+import zipfile
+from typing import Optional
+
 from PIL import Image
 
-class LSRImage():
-	"""LSRImage contains data on the overall size, the layers and the name of
-	the lsr image
-	"""
-	def __init__(self, size: tuple[int, int], name: str, layers: Optional[list[LSRLayer]]=None):
+
+class LSRImage:
+	"""LSRImage contains data on the overall size, the layers and the name of the lsr image."""
+
+	def __init__(self, size: tuple[int, int], name: str, layers: Optional[list[LSRLayer]] = None):
 		self.size = size
 		self.layers = layers if layers is not None else []
 		self.name = name
 
 	def flatten(self) -> Image.Image:
-		""" Flatten all of the layers """
-		return flattenAll([LSRImageData(layer.flatten(), "",
-		offsets=layer.offsets()) for layer in self.layers], self.size)
+		"""Flatten all of the layers."""
+		return flattenAll(
+			[LSRImageData(layer.flatten(), "", offsets=layer.offsets()) for layer in self.layers],
+			self.size,
+		)
 
 
-class LSRLayer():
-	"""LSRLayer contains data on the layer such as the list of images, the name
-	the size and the centre offset
+class LSRLayer:
+	"""LSRLayer contains data on the layer such as the list of images, the name...
+
+	the size and the centre offset.
 	"""
-	def __init__(self, images: list[LSRImageData], name: str,
-	size: tuple[int, int], center: tuple[int, int]):
+
+	def __init__(
+		self, images: list[LSRImageData], name: str, size: tuple[int, int], center: tuple[int, int]
+	):
 		self.images = images
 		self.name = name
 		self.size = size
 		self.center = center
 
 	def offsets(self) -> tuple[int, int]:
-		"""Calculate the x, y offset for the top left corner
+		"""Calculate the x, y offset for the top left corner.
 
 		Returns:
 			tuple[int, int]: tuple for x, y offset
 		"""
-		return (int(self.center[0] - self.size[0]/2),
-		int(self.center[1] - self.size[1]/2))
-		#return 0, 0
+		return (int(self.center[0] - self.size[0] / 2), int(self.center[1] - self.size[1] / 2))
+		# return 0, 0
 
 	def flatten(self) -> Image.Image:
-		""" Faltten all of the layers """
+		"""Faltten all of the layers."""
 		return flattenAll(self.images, self.size)
 
 
-class LSRImageData():
-	"""LSRImageData stores the PIL Image along with the name, scale of the image
-	and the idiom
-	"""
-	def __init__(self, image: Image.Image, name: str, scale: str="1x",
-	idiom: str="universal", offsets: tuple[int, int]=(0, 0)):
+class LSRImageData:
+	"""LSRImageData stores the PIL Image along with the name, scale of the image and the idiom."""
+
+	def __init__(
+		self,
+		image: Image.Image,
+		name: str,
+		scale: str = "1x",
+		idiom: str = "universal",
+		offsets: tuple[int, int] = (0, 0),
+	):
 		self.image = image
 		self.name = name
 		self.scale = int(scale.replace("x", ""))
@@ -61,7 +72,7 @@ class LSRImageData():
 		self.offsets = offsets
 
 	def scaledImage(self):
-		"""Get the scaled image
+		"""Get the scaled image.
 
 		Returns:
 			Image.Image: The image to scale
@@ -71,7 +82,7 @@ class LSRImageData():
 
 
 def read(filename: str) -> LSRImage:
-	"""Read an lsr file
+	"""Read an lsr file.
 
 	Args:
 		filename (str): the path to the file
@@ -80,62 +91,113 @@ def read(filename: str) -> LSRImage:
 		LSRImage: An lsr image representation
 	"""
 	lsrImage = None
-	with zipfile.ZipFile(filename, 'r') as zipref:
+	with zipfile.ZipFile(filename, "r") as zipref:
 		contents = json.load(zipref.open("Contents.json"))
 		layers = contents["layers"]
 		lsrLayers = []
 		for layer in layers:
 			lsrImageData = []
-			layerContents = json.load(zipref.open(layer["filename"] + "/Contents.json"))["properties"]
-			layerImagesList = json.load(zipref.open(layer["filename"] +
-			"/Content.imageset/Contents.json"))["images"]
+			layerContents = json.load(zipref.open(layer["filename"] + "/Contents.json"))[
+				"properties"
+			]
+			layerImagesList = json.load(
+				zipref.open(layer["filename"] + "/Content.imageset/Contents.json")
+			)["images"]
 			for image in layerImagesList:
-				with zipref.open(layer["filename"] + "/Content.imageset/" + image['filename']) as layerImage:
-					lsrImageData.append(LSRImageData(Image.open(layerImage).convert('RGBA'),
-					image["filename"].replace(".png", ""), image["scale"], image["idiom"]))
-			lsrLayers.append(LSRLayer(lsrImageData[::-1], layer["filename"].replace(".imagestacklayer", ""),
-			(layerContents["frame-size"]["width"], layerContents["frame-size"]["height"]),
-			(layerContents["frame-center"]["x"], layerContents["frame-center"]["y"])))
-		lsrImage = LSRImage((contents["properties"]["canvasSize"]["width"],
-		contents["properties"]["canvasSize"]["height"]), filename.replace(".lsr", ""), lsrLayers[::-1])
+				with zipref.open(
+					layer["filename"] + "/Content.imageset/" + image["filename"]
+				) as layerImage:
+					lsrImageData.append(
+						LSRImageData(
+							Image.open(layerImage).convert("RGBA"),
+							image["filename"].replace(".png", ""),
+							image["scale"],
+							image["idiom"],
+						)
+					)
+			lsrLayers.append(
+				LSRLayer(
+					lsrImageData[::-1],
+					layer["filename"].replace(".imagestacklayer", ""),
+					(layerContents["frame-size"]["width"], layerContents["frame-size"]["height"]),
+					(layerContents["frame-center"]["x"], layerContents["frame-center"]["y"]),
+				)
+			)
+		lsrImage = LSRImage(
+			(
+				contents["properties"]["canvasSize"]["width"],
+				contents["properties"]["canvasSize"]["height"],
+			),
+			filename.replace(".lsr", ""),
+			lsrLayers[::-1],
+		)
 	return lsrImage
 
 
 def write(filename: str, lsrImage: LSRImage):
-	"""Write an lsr image to disk
+	"""Write an lsr image to disk.
 
 	Args:
 		filename (str): filename and extension
 		lsrImage (LSRImage): the lsr image representation to save
 	"""
-	INFO = {"version": 1, "author": "pylsr"}
+	_info = {"version": 1, "author": "pylsr"}
 
-	with zipfile.ZipFile(filename, 'w') as zipref:
-		layers = [{"filename": layer.name+ ".imagestacklayer"} for layer in lsrImage.layers[::-1]]
-		zipref.writestr("Contents.json",
-		json.dumps({"info": INFO,
-		"layers": layers,
-		"properties": {"canvasSize": {"width": lsrImage.size[0], "height": lsrImage.size[1]}}}))
+	with zipfile.ZipFile(filename, "w") as zipref:
+		layers = [{"filename": layer.name + ".imagestacklayer"} for layer in lsrImage.layers[::-1]]
+		zipref.writestr(
+			"Contents.json",
+			json.dumps(
+				{
+					"info": _info,
+					"layers": layers,
+					"properties": {
+						"canvasSize": {"width": lsrImage.size[0], "height": lsrImage.size[1]}
+					},
+				}
+			),
+		)
 		for layer in lsrImage.layers[::-1]:
-			zipref.writestr(layer.name + ".imagestacklayer/Contents.json",
-			json.dumps({"info": INFO,
-			"properties": {"frame-size": {"width": layer.size[0], "height": layer.size[1]},
-			"frame-center": {"x": layer.center[0], "y": layer.center[1]}}}))
-			images = [{"idiom": image.idiom, "filename": image.name + ".png",
-			"scale": str(image.scale) + "x"} for image in layer.images[::-1]]
-			zipref.writestr(layer.name + ".imagestacklayer/Content.imageset/Contents.json",
-			json.dumps({"info": INFO,
-			"images": images}))
+			zipref.writestr(
+				layer.name + ".imagestacklayer/Contents.json",
+				json.dumps(
+					{
+						"info": _info,
+						"properties": {
+							"frame-size": {"width": layer.size[0], "height": layer.size[1]},
+							"frame-center": {"x": layer.center[0], "y": layer.center[1]},
+						},
+					}
+				),
+			)
+			images = [
+				{
+					"idiom": image.idiom,
+					"filename": image.name + ".png",
+					"scale": str(image.scale) + "x",
+				}
+				for image in layer.images[::-1]
+			]
+			zipref.writestr(
+				layer.name + ".imagestacklayer/Content.imageset/Contents.json",
+				json.dumps({"info": _info, "images": images}),
+			)
 			for image in layer.images[::-1]:
 				imgByteArr = io.BytesIO()
-				image.image.save(imgByteArr, format='PNG')
+				image.image.save(imgByteArr, format="PNG")
 				imgByteArr.seek(0)
-				zipref.writestr(layer.name + ".imagestacklayer/Content.imageset/" +
-				image.name + ".png", imgByteArr.read())
+				zipref.writestr(
+					layer.name + ".imagestacklayer/Content.imageset/" + image.name + ".png",
+					imgByteArr.read(),
+				)
 
-def flattenTwoLayers(layer: LSRImageData, imageDimensions: tuple[int, int],
-flattenedSoFar: Optional[Image.Image]=None) -> Image.Image:
-	"""Flatten two layers of an image
+
+def flattenTwoLayers(
+	layer: LSRImageData,
+	imageDimensions: tuple[int, int],
+	flattenedSoFar: Optional[Image.Image] = None,
+) -> Image.Image:
+	"""Flatten two layers of an image.
 
 	Args:
 		layer (LSRImageData): lsrimagedata
@@ -146,16 +208,14 @@ flattenedSoFar: Optional[Image.Image]=None) -> Image.Image:
 	Returns:
 		Image.Image: Flattened image
 	"""
-	foregroundRaster = rasterImageOffset(layer.scaledImage(), imageDimensions,
-	layer.offsets)
+	foregroundRaster = rasterImageOffset(layer.scaledImage(), imageDimensions, layer.offsets)
 	if flattenedSoFar is None:
 		return foregroundRaster
 	return Image.alpha_composite(flattenedSoFar, foregroundRaster)
 
 
-
 def flattenAll(layers: list[LSRImageData], imageDimensions: tuple[int, int]) -> Image.Image:
-	"""Flatten a list of layers and groups
+	"""Flatten a list of layers and groups.
 
 	Args:
 		layers (list[LSRImageData]): A list of layers and groups
@@ -167,14 +227,18 @@ def flattenAll(layers: list[LSRImageData], imageDimensions: tuple[int, int]) -> 
 	"""
 	flattenedSoFar = flattenTwoLayers(layers[0], imageDimensions)
 	for layer in range(1, len(layers)):
-		flattenedSoFar = flattenTwoLayers(layers[layer], imageDimensions,
-		flattenedSoFar=flattenedSoFar)
+		flattenedSoFar = flattenTwoLayers(
+			layers[layer], imageDimensions, flattenedSoFar=flattenedSoFar
+		)
 	return flattenedSoFar
 
 
-def rasterImageOffset(image: Image.Image, size: tuple[int, int],
-offsets: tuple[int, int]=(0, 0)) -> Image.Image:
-	""" Rasterise an image with offset to a given size"""
+def rasterImageOffset(
+	image: Image.Image, size: tuple[int, int], offsets: tuple[int, int] = (0, 0)
+) -> Image.Image:
+	"""Rasterise an image with offset to a given size."""
 	imageOffset = Image.new("RGBA", size)
-	imageOffset.paste(image.convert("RGBA"), (int(offsets[0]), int(offsets[1])), image.convert("RGBA"))
+	imageOffset.paste(
+		image.convert("RGBA"), (int(offsets[0]), int(offsets[1])), image.convert("RGBA")
+	)
 	return imageOffset

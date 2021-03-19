@@ -2,7 +2,7 @@
 
 > Auto-generated documentation for [pylsr](../../pylsr/__init__.py) module.
 
-Read an LSR image
+Read an LSR image.
 
 - [Pylsr](../README.md#pylsr-index) / [Modules](../README.md#pylsr-modules) / pylsr
     - [LSRImage](#lsrimage)
@@ -20,7 +20,7 @@ Read an LSR image
 
 ## LSRImage
 
-[[find in source code]](../../pylsr/__init__.py#L10)
+[[find in source code]](../../pylsr/__init__.py#L13)
 
 ```python
 class LSRImage():
@@ -31,22 +31,21 @@ class LSRImage():
     ):
 ```
 
-LSRImage contains data on the overall size, the layers and the name of
-the lsr image
+LSRImage contains data on the overall size, the layers and the name of the lsr image.
 
 ### LSRImage().flatten
 
-[[find in source code]](../../pylsr/__init__.py#L19)
+[[find in source code]](../../pylsr/__init__.py#L21)
 
 ```python
 def flatten() -> Image.Image:
 ```
 
-Flatten all of the layers
+Flatten all of the layers.
 
 ## LSRImageData
 
-[[find in source code]](../../pylsr/__init__.py#L51)
+[[find in source code]](../../pylsr/__init__.py#L57)
 
 ```python
 class LSRImageData():
@@ -59,18 +58,17 @@ class LSRImageData():
     ):
 ```
 
-LSRImageData stores the PIL Image along with the name, scale of the image
-and the idiom
+LSRImageData stores the PIL Image along with the name, scale of the image and the idiom.
 
 ### LSRImageData().scaledImage
 
-[[find in source code]](../../pylsr/__init__.py#L63)
+[[find in source code]](../../pylsr/__init__.py#L74)
 
 ```python
 def scaledImage():
 ```
 
-Get the scaled image
+Get the scaled image.
 
 #### Returns
 
@@ -78,7 +76,7 @@ Get the scaled image
 
 ## LSRLayer
 
-[[find in source code]](../../pylsr/__init__.py#L25)
+[[find in source code]](../../pylsr/__init__.py#L29)
 
 ```python
 class LSRLayer():
@@ -90,28 +88,29 @@ class LSRLayer():
     ):
 ```
 
-LSRLayer contains data on the layer such as the list of images, the name
-the size and the centre offset
+LSRLayer contains data on the layer such as the list of images, the name...
+
+the size and the centre offset.
 
 ### LSRLayer().flatten
 
-[[find in source code]](../../pylsr/__init__.py#L46)
+[[find in source code]](../../pylsr/__init__.py#L52)
 
 ```python
 def flatten() -> Image.Image:
 ```
 
-Faltten all of the layers
+Faltten all of the layers.
 
 ### LSRLayer().offsets
 
-[[find in source code]](../../pylsr/__init__.py#L36)
+[[find in source code]](../../pylsr/__init__.py#L43)
 
 ```python
 def offsets() -> tuple[(int, int)]:
 ```
 
-Calculate the x, y offset for the top left corner
+Calculate the x, y offset for the top left corner.
 
 #### Returns
 
@@ -119,7 +118,7 @@ Calculate the x, y offset for the top left corner
 
 ## flattenAll
 
-[[find in source code]](../../pylsr/__init__.py#L157)
+[[find in source code]](../../pylsr/__init__.py#L217)
 
 ```python
 def flattenAll(
@@ -128,7 +127,7 @@ def flattenAll(
 ) -> Image.Image:
 ```
 
-Flatten a list of layers and groups
+Flatten a list of layers and groups.
 
 #### Arguments
 
@@ -142,7 +141,7 @@ been flattened. Defaults to None.
 
 ## flattenTwoLayers
 
-[[find in source code]](../../pylsr/__init__.py#L136)
+[[find in source code]](../../pylsr/__init__.py#L195)
 
 ```python
 def flattenTwoLayers(
@@ -152,7 +151,7 @@ def flattenTwoLayers(
 ) -> Image.Image:
 ```
 
-Flatten two layers of an image
+Flatten two layers of an image.
 
 #### Arguments
 
@@ -171,7 +170,7 @@ flattened. Defaults to None.
 
 ## rasterImageOffset
 
-[[find in source code]](../../pylsr/__init__.py#L175)
+[[find in source code]](../../pylsr/__init__.py#L236)
 
 ```python
 def rasterImageOffset(
@@ -181,17 +180,17 @@ def rasterImageOffset(
 ) -> Image.Image:
 ```
 
-Rasterise an image with offset to a given size
+Rasterise an image with offset to a given size.
 
 ## read
 
-[[find in source code]](../../pylsr/__init__.py#L73)
+[[find in source code]](../../pylsr/__init__.py#L84)
 
 ```python
 def read(filename: str) -> LSRImage:
 ```
 
-Read an lsr file
+Read an lsr file.
 
 #### Arguments
 
@@ -207,13 +206,13 @@ Read an lsr file
 
 ## write
 
-[[find in source code]](../../pylsr/__init__.py#L104)
+[[find in source code]](../../pylsr/__init__.py#L137)
 
 ```python
 def write(filename: str, lsrImage: LSRImage):
 ```
 
-Write an lsr image to disk
+Write an lsr image to disk.
 
 #### Arguments
 
