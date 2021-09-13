@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pylsr"
-version = "2021"
+version = "2021.0.1"
 description = "Use this module to read, and write to Apple's Layer Source Representation (LSR) Image format."
 authors = ["FredHappyface"]
 classifiers = [
@@ -27,7 +27,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.7"
-Pillow = "<10,>=8.1.2"
+Pillow = "<9,>=8.3.2"
 
 [tool.dephell.main]
 from = "pyproject.toml"
