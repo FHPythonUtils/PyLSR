@@ -45,7 +45,6 @@ https://developer.apple.com/library/archive/documentation/Xcode/Reference/xcode_
 	- [Support](#support)
 	- [Rationale](#rationale)
 
-
 ## Example Usage
 
 Images are PIL.Image (s) and so you can use the power of Pillow to apply
@@ -62,16 +61,20 @@ sys.path.insert(0, os.path.dirname(THISDIR))
 import pylsr
 
 # Copy an image
+
 pylsr.write(THISDIR + "/test1copy.lsr", pylsr.read(THISDIR + "/test1.lsr"))
 
 # Render an image
+
 pylsr.read(THISDIR + "/test1.lsr").flatten().save(THISDIR + "/test1.png")
 ```
 
 ## Documentation
+
 See the [Docs](/DOCS/) for more information.
 
 ## Install With PIP
+
 ```python
 pip install pylsr
 ```
@@ -79,58 +82,96 @@ pip install pylsr
 Head to https://pypi.org/project/pylsr/ for more info
 
 ## Language information
+
 ### Built for
-This program has been written for Python 3 and has been tested with
-Python version 3.9.0 <https://www.python.org/downloads/release/python-380/>.
+
+This program has been written for Python versions 3.7 - 3.10 and has been tested with both 3.7 and
+3.10
 
 ## Install Python on Windows
+
 ### Chocolatey
+
 ```powershell
 choco install python
 ```
-### Download
-To install Python, go to <https://www.python.org/> and download the latest
+
+### Windows - Python.org
+
+To install Python, go to https://www.python.org/downloads/windows/ and download the latest
 version.
 
 ## Install Python on Linux
+
 ### Apt
+
 ```bash
-sudo apt install python3.9
+sudo apt install python3.x
 ```
+
+### Dnf
+
+```bash
+sudo dnf install python3.x
+```
+
+## Install Python on MacOS
+
+### Homebrew
+
+```bash
+brew install python@3.x
+```
+
+### MacOS - Python.org
+
+To install Python, go to https://www.python.org/downloads/macos/ and download the latest
+version.
 
 ## How to run
-### With VSCode
-1. Open the .py file in vscode
-2. Ensure a python 3.9 interpreter is selected (Ctrl+Shift+P > Python:Select
-Interpreter > Python 3.9)
-3. Run by pressing Ctrl+F5 (if you are prompted to install any modules, accept)
-### From the Terminal
-```bash
-./[file].py
-```
+
+### Windows
+
+- Module
+	`py -3.x -m [module]` or `[module]` (if module installs a script)
+
+- File
+	`py -3.x [file]` or `./[file]`
+
+### Linux/ MacOS
+
+- Module
+	`python3.x -m [module]` or `[module]` (if module installs a script)
+
+- File
+	`python3.x [file]` or `./[file]`
 
 ## Download Project
+
 ### Clone
+
 #### Using The Command Line
+
 1. Press the Clone or download button in the top right
 2. Copy the URL (link)
 3. Open the command line and change directory to where you wish to
 clone to
 4. Type 'git clone' followed by URL in step 2
-```bash
-$ git clone https://github.com/FHPythonUtils/PyLSR
-```
+	```bash
+	git clone https://github.com/FHPythonUtils/PyLSR
+	```
 
 More information can be found at
-<https://help.github.com/en/articles/cloning-a-repository>
+https://help.github.com/en/articles/cloning-a-repository
 
 #### Using GitHub Desktop
+
 1. Press the Clone or download button in the top right
 2. Click open in desktop
 3. Choose the path for where you want and click Clone
 
 More information can be found at
-<https://help.github.com/en/desktop/contributing-to-projects/cloning-a-repository-from-github-to-github-desktop>
+https://help.github.com/en/desktop/contributing-to-projects/cloning-a-repository-from-github-to-github-desktop
 
 ### Download Zip File
 
@@ -139,15 +180,19 @@ More information can be found at
 3. Copy/ move to the desired location
 
 ## Community Files
+
 ### Licence
+
 MIT License
 Copyright (c) FredHappyface
 (See the [LICENSE](/LICENSE.md) for more information.)
 
 ### Changelog
+
 See the [Changelog](/CHANGELOG.md) for more information.
 
 ### Code of Conduct
+
 Online communities include people from many backgrounds. The *Project*
 contributors are committed to providing a friendly, safe and welcoming
 environment for all. Please see the
@@ -155,16 +200,19 @@ environment for all. Please see the
  for more information.
 
 ### Contributing
+
 Contributions are welcome, please see the
 [Contributing Guidelines](https://github.com/FHPythonUtils/.github/blob/master/CONTRIBUTING.md)
 for more information.
 
 ### Security
+
 Thank you for improving the security of the project, please see the
 [Security Policy](https://github.com/FHPythonUtils/.github/blob/master/SECURITY.md)
 for more information.
 
 ### Support
+
 Thank you for using this project, I hope it is of use to you. Please be aware that
 those involved with the project often do so for fun along with other commitments
 (such as work, family, etc). Please see the
@@ -172,6 +220,7 @@ those involved with the project often do so for fun along with other commitments
 for more information.
 
 ### Rationale
+
 The rationale acts as a guide to various processes regarding projects such as
 the versioning scheme and the programming styles used. Please see the
 [Rationale](https://github.com/FHPythonUtils/.github/blob/master/RATIONALE.md)

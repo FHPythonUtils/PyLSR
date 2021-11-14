@@ -1,10 +1,10 @@
 """Test pylsr
 """
 import sys
-import os
 from pathlib import Path
+
 THISDIR = str(Path(__file__).resolve().parent)
-sys.path.insert(0, os.path.dirname(THISDIR))
+sys.path.insert(0, str(Path(THISDIR).parent))
 import pylsr
 
 # Copy an image

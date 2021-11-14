@@ -5,7 +5,6 @@ from __future__ import annotations
 import io
 import json
 import zipfile
-from typing import Optional
 
 from PIL import Image
 
@@ -13,7 +12,7 @@ from PIL import Image
 class LSRImage:
 	"""LSRImage contains data on the overall size, the layers and the name of the lsr image."""
 
-	def __init__(self, size: tuple[int, int], name: str, layers: Optional[list[LSRLayer]] = None):
+	def __init__(self, size: tuple[int, int], name: str, layers: list[LSRLayer] | None = None):
 		self.size = size
 		self.layers = layers if layers is not None else []
 		self.name = name
@@ -195,7 +194,7 @@ def write(filename: str, lsrImage: LSRImage):
 def flattenTwoLayers(
 	layer: LSRImageData,
 	imageDimensions: tuple[int, int],
-	flattenedSoFar: Optional[Image.Image] = None,
+	flattenedSoFar: Image.Image | None = None,
 ) -> Image.Image:
 	"""Flatten two layers of an image.
 

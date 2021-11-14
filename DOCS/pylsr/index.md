@@ -20,14 +20,14 @@ Read an LSR image.
 
 ## LSRImage
 
-[[find in source code]](../../pylsr/__init__.py#L13)
+[[find in source code]](../../pylsr/__init__.py#L12)
 
 ```python
 class LSRImage():
     def __init__(
         size: tuple[(int, int)],
         name: str,
-        layers: Optional[list[LSRLayer]] = None,
+        layers: list[LSRLayer] | None = None,
     ):
 ```
 
@@ -35,7 +35,7 @@ LSRImage contains data on the overall size, the layers and the name of the lsr i
 
 ### LSRImage().flatten
 
-[[find in source code]](../../pylsr/__init__.py#L21)
+[[find in source code]](../../pylsr/__init__.py#L20)
 
 ```python
 def flatten() -> Image.Image:
@@ -45,7 +45,7 @@ Flatten all of the layers.
 
 ## LSRImageData
 
-[[find in source code]](../../pylsr/__init__.py#L57)
+[[find in source code]](../../pylsr/__init__.py#L56)
 
 ```python
 class LSRImageData():
@@ -62,7 +62,7 @@ LSRImageData stores the PIL Image along with the name, scale of the image and th
 
 ### LSRImageData().scaledImage
 
-[[find in source code]](../../pylsr/__init__.py#L74)
+[[find in source code]](../../pylsr/__init__.py#L73)
 
 ```python
 def scaledImage():
@@ -76,7 +76,7 @@ Get the scaled image.
 
 ## LSRLayer
 
-[[find in source code]](../../pylsr/__init__.py#L29)
+[[find in source code]](../../pylsr/__init__.py#L28)
 
 ```python
 class LSRLayer():
@@ -94,7 +94,7 @@ the size and the centre offset.
 
 ### LSRLayer().flatten
 
-[[find in source code]](../../pylsr/__init__.py#L52)
+[[find in source code]](../../pylsr/__init__.py#L51)
 
 ```python
 def flatten() -> Image.Image:
@@ -104,7 +104,7 @@ Faltten all of the layers.
 
 ### LSRLayer().offsets
 
-[[find in source code]](../../pylsr/__init__.py#L43)
+[[find in source code]](../../pylsr/__init__.py#L42)
 
 ```python
 def offsets() -> tuple[(int, int)]:
@@ -118,7 +118,7 @@ Calculate the x, y offset for the top left corner.
 
 ## flattenAll
 
-[[find in source code]](../../pylsr/__init__.py#L217)
+[[find in source code]](../../pylsr/__init__.py#L216)
 
 ```python
 def flattenAll(
@@ -141,13 +141,13 @@ been flattened. Defaults to None.
 
 ## flattenTwoLayers
 
-[[find in source code]](../../pylsr/__init__.py#L195)
+[[find in source code]](../../pylsr/__init__.py#L194)
 
 ```python
 def flattenTwoLayers(
     layer: LSRImageData,
     imageDimensions: tuple[(int, int)],
-    flattenedSoFar: Optional[Image.Image] = None,
+    flattenedSoFar: Image.Image | None = None,
 ) -> Image.Image:
 ```
 
@@ -170,7 +170,7 @@ flattened. Defaults to None.
 
 ## rasterImageOffset
 
-[[find in source code]](../../pylsr/__init__.py#L236)
+[[find in source code]](../../pylsr/__init__.py#L235)
 
 ```python
 def rasterImageOffset(
@@ -184,7 +184,7 @@ Rasterise an image with offset to a given size.
 
 ## read
 
-[[find in source code]](../../pylsr/__init__.py#L84)
+[[find in source code]](../../pylsr/__init__.py#L83)
 
 ```python
 def read(filename: str) -> LSRImage:
@@ -206,7 +206,7 @@ Read an lsr file.
 
 ## write
 
-[[find in source code]](../../pylsr/__init__.py#L137)
+[[find in source code]](../../pylsr/__init__.py#L136)
 
 ```python
 def write(filename: str, lsrImage: LSRImage):
