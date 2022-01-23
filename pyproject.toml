@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pylsr"
-version = "2021.0.2"
+version = "2022"
 license = "mit"
 description = "Use this module to read, and write to Apple's Layer Source Representation (LSR) Image format."
 authors = ["FredHappyface"]
@@ -23,7 +23,12 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.7"
-Pillow = "<9,>=8.4.0"
+Pillow = "<10,>=9.0.0"
+deprecation = "<3,>=2.1.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+imgcompare = "^2.0.1"
 
 [tool.pylint.basic]
 argument-naming-style = "camelCase"

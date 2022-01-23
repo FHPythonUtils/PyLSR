@@ -6,6 +6,7 @@ import io
 import json
 import zipfile
 
+from deprecation import deprecated
 from PIL import Image
 
 
@@ -26,8 +27,7 @@ class LSRImage:
 
 
 class LSRLayer:
-	"""LSRLayer contains data on the layer such as the list of images, the name...
-
+	"""LSRLayer contains data on the layer such as the list of images, the name,
 	the size and the centre offset.
 	"""
 
@@ -49,7 +49,7 @@ class LSRLayer:
 		# return 0, 0
 
 	def flatten(self) -> Image.Image:
-		"""Faltten all of the layers."""
+		"""Flatten all of the layers."""
 		return flattenAll(self.images, self.size)
 
 
@@ -201,16 +201,16 @@ def flattenTwoLayers(
 	Args:
 		layer (LSRImageData): lsrimagedata
 		imageDimensions (tuple[int, int]): a tuple of the image dimensions
-		flattenedSoFar (Image.Image, optional): Raster of what has already been
+		flattenedSoFar (Image.Image, optional): Render of what has already been
 		flattened. Defaults to None.
 
 	Returns:
 		Image.Image: Flattened image
 	"""
-	foregroundRaster = rasterImageOffset(layer.scaledImage(), imageDimensions, layer.offsets)
+	foregroundRender = renderImageOffset(layer.scaledImage(), imageDimensions, layer.offsets)
 	if flattenedSoFar is None:
-		return foregroundRaster
-	return Image.alpha_composite(flattenedSoFar, foregroundRaster)
+		return foregroundRender
+	return Image.alpha_composite(flattenedSoFar, foregroundRender)
 
 
 def flattenAll(layers: list[LSRImageData], imageDimensions: tuple[int, int]) -> Image.Image:
@@ -232,10 +232,17 @@ def flattenAll(layers: list[LSRImageData], imageDimensions: tuple[int, int]) -> 
 	return flattenedSoFar
 
 
+@deprecated(deprecated_in="2022", removed_in="", details="Use renderImageOffset")
 def rasterImageOffset(
 	image: Image.Image, size: tuple[int, int], offsets: tuple[int, int] = (0, 0)
 ) -> Image.Image:
-	"""Rasterise an image with offset to a given size."""
+	return renderImageOffset(image, size, offsets)
+
+
+def renderImageOffset(
+	image: Image.Image, size: tuple[int, int], offsets: tuple[int, int] = (0, 0)
+) -> Image.Image:
+	"""Render an image with offset to a given size."""
 	imageOffset = Image.new("RGBA", size)
 	imageOffset.paste(
 		image.convert("RGBA"), (int(offsets[0]), int(offsets[1])), image.convert("RGBA")

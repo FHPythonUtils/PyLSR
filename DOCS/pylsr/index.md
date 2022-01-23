@@ -16,11 +16,12 @@ Read an LSR image.
     - [flattenTwoLayers](#flattentwolayers)
     - [rasterImageOffset](#rasterimageoffset)
     - [read](#read)
+    - [renderImageOffset](#renderimageoffset)
     - [write](#write)
 
 ## LSRImage
 
-[[find in source code]](../../pylsr/__init__.py#L12)
+[[find in source code]](../../pylsr/__init__.py#L13)
 
 ```python
 class LSRImage():
@@ -35,7 +36,7 @@ LSRImage contains data on the overall size, the layers and the name of the lsr i
 
 ### LSRImage().flatten
 
-[[find in source code]](../../pylsr/__init__.py#L20)
+[[find in source code]](../../pylsr/__init__.py#L21)
 
 ```python
 def flatten() -> Image.Image:
@@ -76,7 +77,7 @@ Get the scaled image.
 
 ## LSRLayer
 
-[[find in source code]](../../pylsr/__init__.py#L28)
+[[find in source code]](../../pylsr/__init__.py#L29)
 
 ```python
 class LSRLayer():
@@ -88,8 +89,7 @@ class LSRLayer():
     ):
 ```
 
-LSRLayer contains data on the layer such as the list of images, the name...
-
+LSRLayer contains data on the layer such as the list of images, the name,
 the size and the centre offset.
 
 ### LSRLayer().flatten
@@ -100,7 +100,7 @@ the size and the centre offset.
 def flatten() -> Image.Image:
 ```
 
-Faltten all of the layers.
+Flatten all of the layers.
 
 ### LSRLayer().offsets
 
@@ -157,7 +157,7 @@ Flatten two layers of an image.
 
 - `layer` *LSRImageData* - lsrimagedata
 imageDimensions (tuple[int, int]): a tuple of the image dimensions
-- `flattenedSoFar` *Image.Image, optional* - Raster of what has already been
+- `flattenedSoFar` *Image.Image, optional* - Render of what has already been
 flattened. Defaults to None.
 
 #### Returns
@@ -173,14 +173,17 @@ flattened. Defaults to None.
 [[find in source code]](../../pylsr/__init__.py#L235)
 
 ```python
+@deprecated(
+    deprecated_in='2022',
+    removed_in='',
+    details='Use renderImageOffset',
+)
 def rasterImageOffset(
     image: Image.Image,
     size: tuple[(int, int)],
     offsets: tuple[(int, int)] = (0, 0),
 ) -> Image.Image:
 ```
-
-Rasterise an image with offset to a given size.
 
 ## read
 
@@ -203,6 +206,20 @@ Read an lsr file.
 #### See also
 
 - [LSRImage](#lsrimage)
+
+## renderImageOffset
+
+[[find in source code]](../../pylsr/__init__.py#L242)
+
+```python
+def renderImageOffset(
+    image: Image.Image,
+    size: tuple[(int, int)],
+    offsets: tuple[(int, int)] = (0, 0),
+) -> Image.Image:
+```
+
+Render an image with offset to a given size.
 
 ## write
 
