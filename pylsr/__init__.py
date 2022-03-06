@@ -110,8 +110,8 @@ def read(filename: str) -> LSRImage:
 						LSRImageData(
 							Image.open(layerImage).convert("RGBA"),
 							image["filename"].replace(".png", ""),
-							image["scale"],
-							image["idiom"],
+							image.get("scale", "1x"),
+							image.get("idiom", "universal"),
 						)
 					)
 			lsrLayers.append(
