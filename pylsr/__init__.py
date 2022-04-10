@@ -9,6 +9,8 @@ import zipfile
 from deprecation import deprecated
 from PIL import Image
 
+jsonLoadsFromArchive = lambda x: json.loads(x.read_text(encoding="utf-8"))
+
 
 class LSRImage:
 	"""LSRImage contains data on the overall size, the layers and the name of the lsr image."""
@@ -91,16 +93,17 @@ def read(filename: str) -> LSRImage:
 	"""
 	lsrImage = None
 	with zipfile.ZipFile(filename, "r") as zipref:
-		contents = json.load(zipref.open("Contents.json"))
+		zippath = zipfile.Path(zipref)
+		contents = jsonLoadsFromArchive(zippath / "Contents.json")
 		layers = contents["layers"]
 		lsrLayers = []
 		for layer in layers:
 			lsrImageData = []
-			layerContents = json.load(zipref.open(layer["filename"] + "/Contents.json"))[
-				"properties"
-			]
-			layerImagesList = json.load(
-				zipref.open(layer["filename"] + "/Content.imageset/Contents.json")
+			layerContents = jsonLoadsFromArchive(
+				zippath / layer["filename"] / "Contents.json",
+			)["properties"]
+			layerImagesList = jsonLoadsFromArchive(
+				zippath / layer["filename"] / "Content.imageset/Contents.json",
 			)["images"]
 			for image in layerImagesList:
 				with zipref.open(
@@ -232,10 +235,11 @@ def flattenAll(layers: list[LSRImageData], imageDimensions: tuple[int, int]) -> 
 	return flattenedSoFar
 
 
-@deprecated(deprecated_in="2022", removed_in="", details="Use renderImageOffset")
+@deprecated(deprecated_in="2022", removed_in="2023", details="Use renderImageOffset")
 def rasterImageOffset(
 	image: Image.Image, size: tuple[int, int], offsets: tuple[int, int] = (0, 0)
 ) -> Image.Image:
+	"""Render an image with offset to a given size. (deprecated, use renderImageOffset)"""
 	return renderImageOffset(image, size, offsets)
 
 

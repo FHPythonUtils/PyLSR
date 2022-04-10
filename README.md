@@ -25,12 +25,16 @@ https://developer.apple.com/library/archive/documentation/Xcode/Reference/xcode_
 	- [Built for](#built-for)
 - [Install Python on Windows](#install-python-on-windows)
 	- [Chocolatey](#chocolatey)
-	- [Download](#download)
+	- [Windows - Python.org](#windows---pythonorg)
 - [Install Python on Linux](#install-python-on-linux)
 	- [Apt](#apt)
+	- [Dnf](#dnf)
+- [Install Python on MacOS](#install-python-on-macos)
+	- [Homebrew](#homebrew)
+	- [MacOS - Python.org](#macos---pythonorg)
 - [How to run](#how-to-run)
-	- [With VSCode](#with-vscode)
-	- [From the Terminal](#from-the-terminal)
+	- [Windows](#windows)
+	- [Linux/ MacOS](#linux-macos)
 - [Download Project](#download-project)
 	- [Clone](#clone)
 		- [Using The Command Line](#using-the-command-line)
@@ -54,24 +58,33 @@ filters, and other modifications to the images.
 """Test pylsr
 """
 import sys
-import os
 from pathlib import Path
-THISDIR = str(Path(__file__).resolve().parent)
-sys.path.insert(0, os.path.dirname(THISDIR))
+
 import pylsr
 
 # Copy an image
-
-pylsr.write(THISDIR + "/test1copy.lsr", pylsr.read(THISDIR + "/test1.lsr"))
+pylsr.write(f"{THISDIR}/data/test1copy.lsr", pylsr.read(f"{THISDIR}/data/test1.lsr"))
 
 # Render an image
-
-pylsr.read(THISDIR + "/test1.lsr").flatten().save(THISDIR + "/test1.png")
+pylsr.read(f"{THISDIR}/data/test1.lsr").flatten().save(f"{THISDIR}/data/test1.png")
 ```
 
 ## Documentation
 
-See the [Docs](/DOCS/) for more information.
+A high-level overview of how the documentation is organized organized will help you know
+where to look for certain things:
+
+<!--
+- [Tutorials](/documentation/tutorials) take you by the hand through a series of steps to get
+  started using the software. Start here if you’re new.
+-->
+- The [Technical Reference](/documentation/reference) documents APIs and other aspects of the
+  machinery. This documentation describes how to use the classes and functions at a lower level
+  and assume that you have a good high-level understanding of the software.
+<!--
+- The [Help](/documentation/help) guide provides a starting point and outlines common issues that you
+  may have.
+-->
 
 ## Install With PIP
 

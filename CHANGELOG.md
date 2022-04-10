@@ -3,6 +3,14 @@
 All major and minor version changes will be documented in this file. Details of
 patch-level version changes can be found in [commit messages](../../commits/master).
 
+## 2022.0.1 - 2022/04/10
+
+- Use dict.get() to obtain optional keys per https://github.com/FHPythonUtils/PyLSR/pull/4
+- Add test cases for #4, thank you https://github.com/JelenaBanjac!
+- Move docs
+- Update pre-commit
+- Minor code improvements
+
 ## 2022 - 2022/01/23
 
 - Bump pillow version (CVE-2022-22815, CVE-2022-22816, CVE-2022-22817)
