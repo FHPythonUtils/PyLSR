@@ -1,8 +1,7 @@
-# Pylsr Modules
+# Pylsr Index
 
-> Auto-generated documentation modules index.
+> Auto-generated documentation index.
 
-Full list of [Pylsr](README.md#pylsr-index) project modules.
+A full list of `Pylsr` project modules.
 
-- [Pylsr Index](README.md#pylsr-index)
 - [Pylsr](pylsr/index.md#pylsr)
