@@ -1,2 +1,2 @@
-Pillow<10,>=9.0.0
+Pillow<11,>=10.0.0
 deprecation<3,>=2.1.0

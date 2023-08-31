@@ -296,5 +296,3 @@ def write(filename: str, lsrImage: LSRImage):
 #### See also
 
 - [LSRImage](#lsrimage)
-
-
