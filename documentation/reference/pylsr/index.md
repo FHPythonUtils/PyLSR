@@ -32,8 +32,7 @@ LSRImage contains data on the overall size, the layers and the name of the lsr i
 class LSRImage:
     def __init__(
         self, size: tuple[int, int], name: str, layers: list[LSRLayer] | None = None
-    ):
-        ...
+    ): ...
 ```
 
 ### LSRImage().flatten
@@ -45,8 +44,7 @@ Flatten all of the layers.
 #### Signature
 
 ```python
-def flatten(self) -> Image.Image:
-    ...
+def flatten(self) -> Image.Image: ...
 ```
 
 
@@ -68,8 +66,7 @@ class LSRImageData:
         scale: str = "1x",
         idiom: str = "universal",
         offsets: tuple[int, int] = (0, 0),
-    ):
-        ...
+    ): ...
 ```
 
 ### LSRImageData().scaledImage
@@ -85,8 +82,7 @@ Get the scaled image.
 #### Signature
 
 ```python
-def scaledImage(self):
-    ...
+def scaledImage(self): ...
 ```
 
 
@@ -108,8 +104,7 @@ class LSRLayer:
         name: str,
         size: tuple[int, int],
         center: tuple[int, int],
-    ):
-        ...
+    ): ...
 ```
 
 #### See also
@@ -125,8 +120,7 @@ Flatten all of the layers.
 #### Signature
 
 ```python
-def flatten(self) -> Image.Image:
-    ...
+def flatten(self) -> Image.Image: ...
 ```
 
 ### LSRLayer().offsets
@@ -142,8 +136,7 @@ Calculate the x, y offset for the top left corner.
 #### Signature
 
 ```python
-def offsets(self) -> tuple[int, int]:
-    ...
+def offsets(self) -> tuple[int, int]: ...
 ```
 
 
@@ -169,8 +162,7 @@ been flattened. Defaults to None.
 ```python
 def flattenAll(
     layers: list[LSRImageData], imageDimensions: tuple[int, int]
-) -> Image.Image:
-    ...
+) -> Image.Image: ...
 ```
 
 #### See also
@@ -203,8 +195,7 @@ def flattenTwoLayers(
     layer: LSRImageData,
     imageDimensions: tuple[int, int],
     flattenedSoFar: Image.Image | None = None,
-) -> Image.Image:
-    ...
+) -> Image.Image: ...
 ```
 
 #### See also
@@ -225,8 +216,7 @@ Render an image with offset to a given size. (deprecated, use renderImageOffset)
 @deprecated(deprecated_in="2022", removed_in="2023", details="Use renderImageOffset")
 def rasterImageOffset(
     image: Image.Image, size: tuple[int, int], offsets: tuple[int, int] = (0, 0)
-) -> Image.Image:
-    ...
+) -> Image.Image: ...
 ```
 
 
@@ -248,8 +238,7 @@ Read an lsr file.
 #### Signature
 
 ```python
-def read(filename: str) -> LSRImage:
-    ...
+def read(filename: str) -> LSRImage: ...
 ```
 
 #### See also
@@ -269,8 +258,7 @@ Render an image with offset to a given size.
 ```python
 def renderImageOffset(
     image: Image.Image, size: tuple[int, int], offsets: tuple[int, int] = (0, 0)
-) -> Image.Image:
-    ...
+) -> Image.Image: ...
 ```
 
 
@@ -289,8 +277,7 @@ Write an lsr image to disk.
 #### Signature
 
 ```python
-def write(filename: str, lsrImage: LSRImage):
-    ...
+def write(filename: str, lsrImage: LSRImage): ...
 ```
 
 #### See also
