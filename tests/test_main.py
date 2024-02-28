@@ -13,7 +13,10 @@ import pylsr
 
 
 def aux_testCopy(baseName: str):
-	pylsr.write(f"{THISDIR}/data/{baseName}copy.lsr", pylsr.read(f"{THISDIR}/data/{baseName}.lsr"))
+	pylsr.write(
+		f"{THISDIR}/data/{baseName}copy.lsr",
+		pylsr.read(f"{THISDIR}/data/{baseName}.lsr"),
+	)
 	output = f"{THISDIR}/data/{baseName}.png"
 	expected = f"{THISDIR}/data/{baseName}_expected.png"
 	pylsr.read(f"{THISDIR}/data/{baseName}.lsr").flatten().save(output)

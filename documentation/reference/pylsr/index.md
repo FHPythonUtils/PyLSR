@@ -1,7 +1,6 @@
 # Pylsr
 
-[Pylsr Index](../README.md#pylsr-index) /
-Pylsr
+[Pylsr Index](../README.md#pylsr-index) / Pylsr
 
 > Auto-generated documentation for [pylsr](../../../pylsr/__init__.py) module.
 
@@ -37,7 +36,7 @@ class LSRImage:
 
 ### LSRImage().flatten
 
-[Show source in __init__.py:23](../../../pylsr/__init__.py#L23)
+[Show source in __init__.py:25](../../../pylsr/__init__.py#L25)
 
 Flatten all of the layers.
 
@@ -51,7 +50,7 @@ def flatten(self) -> Image.Image: ...
 
 ## LSRImageData
 
-[Show source in __init__.py:58](../../../pylsr/__init__.py#L58)
+[Show source in __init__.py:70](../../../pylsr/__init__.py#L70)
 
 LSRImageData stores the PIL Image along with the name, scale of the image and the idiom.
 
@@ -71,7 +70,7 @@ class LSRImageData:
 
 ### LSRImageData().scaledImage
 
-[Show source in __init__.py:75](../../../pylsr/__init__.py#L75)
+[Show source in __init__.py:87](../../../pylsr/__init__.py#L87)
 
 Get the scaled image.
 
@@ -89,7 +88,7 @@ def scaledImage(self): ...
 
 ## LSRLayer
 
-[Show source in __init__.py:31](../../../pylsr/__init__.py#L31)
+[Show source in __init__.py:36](../../../pylsr/__init__.py#L36)
 
 LSRLayer contains data on the layer such as the list of images, the name,
 the size and the centre offset.
@@ -113,7 +112,7 @@ class LSRLayer:
 
 ### LSRLayer().flatten
 
-[Show source in __init__.py:53](../../../pylsr/__init__.py#L53)
+[Show source in __init__.py:65](../../../pylsr/__init__.py#L65)
 
 Flatten all of the layers.
 
@@ -125,7 +124,7 @@ def flatten(self) -> Image.Image: ...
 
 ### LSRLayer().offsets
 
-[Show source in __init__.py:44](../../../pylsr/__init__.py#L44)
+[Show source in __init__.py:53](../../../pylsr/__init__.py#L53)
 
 Calculate the x, y offset for the top left corner.
 
@@ -143,7 +142,7 @@ def offsets(self) -> tuple[int, int]: ...
 
 ## flattenAll
 
-[Show source in __init__.py:219](../../../pylsr/__init__.py#L219)
+[Show source in __init__.py:254](../../../pylsr/__init__.py#L254)
 
 Flatten a list of layers and groups.
 
@@ -173,7 +172,7 @@ def flattenAll(
 
 ## flattenTwoLayers
 
-[Show source in __init__.py:197](../../../pylsr/__init__.py#L197)
+[Show source in __init__.py:230](../../../pylsr/__init__.py#L230)
 
 Flatten two layers of an image.
 
@@ -206,7 +205,7 @@ def flattenTwoLayers(
 
 ## rasterImageOffset
 
-[Show source in __init__.py:238](../../../pylsr/__init__.py#L238)
+[Show source in __init__.py:275](../../../pylsr/__init__.py#L275)
 
 Render an image with offset to a given size. (deprecated, use renderImageOffset)
 
@@ -223,7 +222,7 @@ def rasterImageOffset(
 
 ## read
 
-[Show source in __init__.py:85](../../../pylsr/__init__.py#L85)
+[Show source in __init__.py:97](../../../pylsr/__init__.py#L97)
 
 Read an lsr file.
 
@@ -249,7 +248,7 @@ def read(filename: str) -> LSRImage: ...
 
 ## renderImageOffset
 
-[Show source in __init__.py:246](../../../pylsr/__init__.py#L246)
+[Show source in __init__.py:283](../../../pylsr/__init__.py#L283)
 
 Render an image with offset to a given size.
 
@@ -265,7 +264,7 @@ def renderImageOffset(
 
 ## write
 
-[Show source in __init__.py:139](../../../pylsr/__init__.py#L139)
+[Show source in __init__.py:157](../../../pylsr/__init__.py#L157)
 
 Write an lsr image to disk.
 
