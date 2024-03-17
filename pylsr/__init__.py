@@ -1,5 +1,5 @@
-"""Read an LSR image.
-"""
+"""Read an LSR image."""
+
 from __future__ import annotations
 
 import io
@@ -15,9 +15,7 @@ jsonLoadsFromArchive = lambda x: json.loads(x.read_text(encoding="utf-8"))
 class LSRImage:
 	"""LSRImage contains data on the overall size, the layers and the name of the lsr image."""
 
-	def __init__(
-		self, size: tuple[int, int], name: str, layers: list[LSRLayer] | None = None
-	):
+	def __init__(self, size: tuple[int, int], name: str, layers: list[LSRLayer] | None = None):
 		self.size = size
 		self.layers = layers if layers is not None else []
 		self.name = name
@@ -25,10 +23,7 @@ class LSRImage:
 	def flatten(self) -> Image.Image:
 		"""Flatten all of the layers."""
 		return flattenAll(
-			[
-				LSRImageData(layer.flatten(), "", offsets=layer.offsets())
-				for layer in self.layers
-			],
+			[LSRImageData(layer.flatten(), "", offsets=layer.offsets()) for layer in self.layers],
 			self.size,
 		)
 
@@ -53,8 +48,10 @@ class LSRLayer:
 	def offsets(self) -> tuple[int, int]:
 		"""Calculate the x, y offset for the top left corner.
 
-		Returns:
+		Returns
+		-------
 			tuple[int, int]: tuple for x, y offset
+
 		"""
 		return (
 			int(self.center[0] - self.size[0] / 2),
@@ -87,8 +84,10 @@ class LSRImageData:
 	def scaledImage(self):
 		"""Get the scaled image.
 
-		Returns:
+		Returns
+		-------
 			Image.Image: The image to scale
+
 		"""
 		width, height = self.image.size
 		return self.image.resize((width * self.scale, height * self.scale))
@@ -98,10 +97,13 @@ def read(filename: str) -> LSRImage:
 	"""Read an lsr file.
 
 	Args:
+	----
 		filename (str): the path to the file
 
 	Returns:
+	-------
 		LSRImage: An lsr image representation
+
 	"""
 	lsrImage = None
 	with zipfile.ZipFile(filename, "r") as zipref:
@@ -158,16 +160,15 @@ def write(filename: str, lsrImage: LSRImage):
 	"""Write an lsr image to disk.
 
 	Args:
+	----
 		filename (str): filename and extension
 		lsrImage (LSRImage): the lsr image representation to save
+
 	"""
 	_info = {"version": 1, "author": "pylsr"}
 
 	with zipfile.ZipFile(filename, "w") as zipref:
-		layers = [
-			{"filename": layer.name + ".imagestacklayer"}
-			for layer in lsrImage.layers[::-1]
-		]
+		layers = [{"filename": layer.name + ".imagestacklayer"} for layer in lsrImage.layers[::-1]]
 		zipref.writestr(
 			"Contents.json",
 			json.dumps(
@@ -219,10 +220,7 @@ def write(filename: str, lsrImage: LSRImage):
 				image.image.save(imgByteArr, format="PNG")
 				imgByteArr.seek(0)
 				zipref.writestr(
-					layer.name
-					+ ".imagestacklayer/Content.imageset/"
-					+ image.name
-					+ ".png",
+					layer.name + ".imagestacklayer/Content.imageset/" + image.name + ".png",
 					imgByteArr.read(),
 				)
 
@@ -235,34 +233,36 @@ def flattenTwoLayers(
 	"""Flatten two layers of an image.
 
 	Args:
+	----
 		layer (LSRImageData): lsrimagedata
 		imageDimensions (tuple[int, int]): a tuple of the image dimensions
 		flattenedSoFar (Image.Image, optional): Render of what has already been
 		flattened. Defaults to None.
 
 	Returns:
+	-------
 		Image.Image: Flattened image
+
 	"""
-	foregroundRender = renderImageOffset(
-		layer.scaledImage(), imageDimensions, layer.offsets
-	)
+	foregroundRender = renderImageOffset(layer.scaledImage(), imageDimensions, layer.offsets)
 	if flattenedSoFar is None:
 		return foregroundRender
 	return Image.alpha_composite(flattenedSoFar, foregroundRender)
 
 
-def flattenAll(
-	layers: list[LSRImageData], imageDimensions: tuple[int, int]
-) -> Image.Image:
+def flattenAll(layers: list[LSRImageData], imageDimensions: tuple[int, int]) -> Image.Image:
 	"""Flatten a list of layers and groups.
 
 	Args:
+	----
 		layers (list[LSRImageData]): A list of layers and groups
 		imageDimensions (tuple[int, int]): size of the image
 		been flattened. Defaults to None.
 
 	Returns:
+	-------
 		Image.Image: Flattened image
+
 	"""
 	flattenedSoFar = flattenTwoLayers(layers[0], imageDimensions)
 	for layer in range(1, len(layers)):

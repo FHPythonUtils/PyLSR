@@ -36,7 +36,7 @@ class LSRImage:
 
 ### LSRImage().flatten
 
-[Show source in __init__.py:25](../../../pylsr/__init__.py#L25)
+[Show source in __init__.py:23](../../../pylsr/__init__.py#L23)
 
 Flatten all of the layers.
 
@@ -50,7 +50,7 @@ def flatten(self) -> Image.Image: ...
 
 ## LSRImageData
 
-[Show source in __init__.py:70](../../../pylsr/__init__.py#L70)
+[Show source in __init__.py:67](../../../pylsr/__init__.py#L67)
 
 LSRImageData stores the PIL Image along with the name, scale of the image and the idiom.
 
@@ -70,13 +70,13 @@ class LSRImageData:
 
 ### LSRImageData().scaledImage
 
-[Show source in __init__.py:87](../../../pylsr/__init__.py#L87)
+[Show source in __init__.py:84](../../../pylsr/__init__.py#L84)
 
 Get the scaled image.
 
-#### Returns
-
-- `Image.Image` - The image to scale
+Returns
+-------
+ Image.Image: The image to scale
 
 #### Signature
 
@@ -88,7 +88,7 @@ def scaledImage(self): ...
 
 ## LSRLayer
 
-[Show source in __init__.py:36](../../../pylsr/__init__.py#L36)
+[Show source in __init__.py:31](../../../pylsr/__init__.py#L31)
 
 LSRLayer contains data on the layer such as the list of images, the name,
 the size and the centre offset.
@@ -112,7 +112,7 @@ class LSRLayer:
 
 ### LSRLayer().flatten
 
-[Show source in __init__.py:65](../../../pylsr/__init__.py#L65)
+[Show source in __init__.py:62](../../../pylsr/__init__.py#L62)
 
 Flatten all of the layers.
 
@@ -124,13 +124,13 @@ def flatten(self) -> Image.Image: ...
 
 ### LSRLayer().offsets
 
-[Show source in __init__.py:53](../../../pylsr/__init__.py#L53)
+[Show source in __init__.py:48](../../../pylsr/__init__.py#L48)
 
 Calculate the x, y offset for the top left corner.
 
-#### Returns
-
-- `tuple[int,` *int]* - tuple for x, y offset
+Returns
+-------
+ tuple[int, int]: tuple for x, y offset
 
 #### Signature
 
@@ -142,19 +142,21 @@ def offsets(self) -> tuple[int, int]: ...
 
 ## flattenAll
 
-[Show source in __init__.py:254](../../../pylsr/__init__.py#L254)
+[Show source in __init__.py:253](../../../pylsr/__init__.py#L253)
 
 Flatten a list of layers and groups.
 
 #### Arguments
 
-- `layers` *list[LSRImageData]* - A list of layers and groups
-imageDimensions (tuple[int, int]): size of the image
-been flattened. Defaults to None.
+----
+ - `layers` *list[LSRImageData]* - A list of layers and groups
+ imageDimensions (tuple[int, int]): size of the image
+ been flattened. Defaults to None.
 
 #### Returns
 
-- `Image.Image` - Flattened image
+-------
+ - `Image.Image` - Flattened image
 
 #### Signature
 
@@ -172,20 +174,22 @@ def flattenAll(
 
 ## flattenTwoLayers
 
-[Show source in __init__.py:230](../../../pylsr/__init__.py#L230)
+[Show source in __init__.py:228](../../../pylsr/__init__.py#L228)
 
 Flatten two layers of an image.
 
 #### Arguments
 
-- `layer` *LSRImageData* - lsrimagedata
-imageDimensions (tuple[int, int]): a tuple of the image dimensions
-- `flattenedSoFar` *Image.Image, optional* - Render of what has already been
-flattened. Defaults to None.
+----
+ - `layer` *LSRImageData* - lsrimagedata
+ imageDimensions (tuple[int, int]): a tuple of the image dimensions
+ - `flattenedSoFar` *Image.Image, optional* - Render of what has already been
+ flattened. Defaults to None.
 
 #### Returns
 
-- `Image.Image` - Flattened image
+-------
+ - `Image.Image` - Flattened image
 
 #### Signature
 
@@ -222,17 +226,19 @@ def rasterImageOffset(
 
 ## read
 
-[Show source in __init__.py:97](../../../pylsr/__init__.py#L97)
+[Show source in __init__.py:96](../../../pylsr/__init__.py#L96)
 
 Read an lsr file.
 
 #### Arguments
 
-- `filename` *str* - the path to the file
+----
+ - `filename` *str* - the path to the file
 
 #### Returns
 
-- [LSRImage](#lsrimage) - An lsr image representation
+-------
+ - [LSRImage](#lsrimage) - An lsr image representation
 
 #### Signature
 
@@ -264,14 +270,15 @@ def renderImageOffset(
 
 ## write
 
-[Show source in __init__.py:157](../../../pylsr/__init__.py#L157)
+[Show source in __init__.py:159](../../../pylsr/__init__.py#L159)
 
 Write an lsr image to disk.
 
 #### Arguments
 
-- `filename` *str* - filename and extension
-- `lsrImage` *LSRImage* - the lsr image representation to save
+----
+ - `filename` *str* - filename and extension
+ - `lsrImage` *LSRImage* - the lsr image representation to save
 
 #### Signature
 

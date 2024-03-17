@@ -1,5 +1,5 @@
-"""Test pylsr
-"""
+"""Test pylsr"""
+
 from __future__ import annotations
 
 import sys
@@ -16,13 +16,9 @@ pylsr.write(f"{THISDIR}/data/test1copy.lsr", pylsr.read(f"{THISDIR}/data/test1.l
 pylsr.read(f"{THISDIR}/data/test1.lsr").flatten().save(f"{THISDIR}/data/test1.png")
 
 # Render the copy
-pylsr.read(f"{THISDIR}/data/test1copy.lsr").flatten().save(
-	f"{THISDIR}/data/test1copy.png"
-)
+pylsr.read(f"{THISDIR}/data/test1copy.lsr").flatten().save(f"{THISDIR}/data/test1copy.png")
 
 # Copy an image
 pylsr.write(f"{THISDIR}/data/test3copy.lsr", pylsr.read(f"{THISDIR}/data/test3.lsr"))
 pylsr.read(f"{THISDIR}/data/test3.lsr").flatten().save(f"{THISDIR}/data/test3.png")
-pylsr.read(f"{THISDIR}/data/test3copy.lsr").flatten().save(
-	f"{THISDIR}/data/test3copy.png"
-)
+pylsr.read(f"{THISDIR}/data/test3copy.lsr").flatten().save(f"{THISDIR}/data/test3copy.png")
