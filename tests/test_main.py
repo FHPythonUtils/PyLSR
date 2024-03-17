@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(THISDIR).parent))
 import pylsr
 
 
-def aux_testCopy(baseName: str):
+def aux_testCopy(baseName: str) -> None:
 	pylsr.write(
 		f"{THISDIR}/data/{baseName}copy.lsr",
 		pylsr.read(f"{THISDIR}/data/{baseName}.lsr"),

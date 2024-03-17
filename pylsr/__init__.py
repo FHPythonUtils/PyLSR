@@ -9,13 +9,15 @@ import zipfile
 from deprecation import deprecated
 from PIL import Image
 
-jsonLoadsFromArchive = lambda x: json.loads(x.read_text(encoding="utf-8"))
+
+def jsonLoadsFromArchive(x):
+	return json.loads(x.read_text(encoding="utf-8"))
 
 
 class LSRImage:
 	"""LSRImage contains data on the overall size, the layers and the name of the lsr image."""
 
-	def __init__(self, size: tuple[int, int], name: str, layers: list[LSRLayer] | None = None):
+	def __init__(self, size: tuple[int, int], name: str, layers: list[LSRLayer] | None = None) -> None:
 		self.size = size
 		self.layers = layers if layers is not None else []
 		self.name = name
@@ -39,7 +41,7 @@ class LSRLayer:
 		name: str,
 		size: tuple[int, int],
 		center: tuple[int, int],
-	):
+	) -> None:
 		self.images = images
 		self.name = name
 		self.size = size
@@ -74,7 +76,7 @@ class LSRImageData:
 		scale: str = "1x",
 		idiom: str = "universal",
 		offsets: tuple[int, int] = (0, 0),
-	):
+	) -> None:
 		self.image = image
 		self.name = name
 		self.scale = int(scale.replace("x", ""))
@@ -105,7 +107,6 @@ def read(filename: str) -> LSRImage:
 		LSRImage: An lsr image representation
 
 	"""
-	lsrImage = None
 	with zipfile.ZipFile(filename, "r") as zipref:
 		zippath = zipfile.Path(zipref)
 		contents = jsonLoadsFromArchive(zippath / "Contents.json")
@@ -145,7 +146,7 @@ def read(filename: str) -> LSRImage:
 					),
 				)
 			)
-		lsrImage = LSRImage(
+		return LSRImage(
 			(
 				contents["properties"]["canvasSize"]["width"],
 				contents["properties"]["canvasSize"]["height"],
@@ -153,10 +154,9 @@ def read(filename: str) -> LSRImage:
 			filename.replace(".lsr", ""),
 			lsrLayers[::-1],
 		)
-	return lsrImage
 
 
-def write(filename: str, lsrImage: LSRImage):
+def write(filename: str, lsrImage: LSRImage) -> None:
 	"""Write an lsr image to disk.
 
 	Args:
@@ -276,7 +276,7 @@ def flattenAll(layers: list[LSRImageData], imageDimensions: tuple[int, int]) -> 
 def rasterImageOffset(
 	image: Image.Image, size: tuple[int, int], offsets: tuple[int, int] = (0, 0)
 ) -> Image.Image:
-	"""Render an image with offset to a given size. (deprecated, use renderImageOffset)"""
+	"""Render an image with offset to a given size. (deprecated, use renderImageOffset)."""
 	return renderImageOffset(image, size, offsets)
 
 
